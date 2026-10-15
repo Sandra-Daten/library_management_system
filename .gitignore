@@ -1,0 +1,6 @@
+
+# DataGrip project settings
+.idea/
+
+# macOS system files
+.DS_Store
