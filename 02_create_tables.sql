@@ -18,17 +18,20 @@ create table authors
 # T2 - BOOKS
 -- -----------------------------------------------------------------------------------------------------------
 
-create table books
+CREATE TABLE books
 (
-    book_id          int auto_increment
-        primary key,
-    title            varchar(64) not null,
-    publication_year int         not null,
-    genre            varchar(30) not null,
-    author_id        int         not null,
-    constraint books_authors_fk
-        foreign key (author_id) references authors (author_id)
+    book_id          INT AUTO_INCREMENT PRIMARY KEY,
+    title            VARCHAR(128) NOT NULL,
+    publication_year INT NOT NULL,
+    genre            VARCHAR(30) NOT NULL,
+    author_id        INT NOT NULL,
+
+    CONSTRAINT books_authors_fk_restrict
+        FOREIGN KEY (author_id) REFERENCES authors(author_id)
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT
 );
+
 
 # T3 - MEMBERS
 -- -----------------------------------------------------------------------------------------------------------
@@ -48,16 +51,21 @@ create table members
 # T4 - LOANS
 -- -----------------------------------------------------------------------------------------------------------
 
-create table loans
+CREATE TABLE loans
 (
-    loan_id     int auto_increment
-        primary key,
-    loan_date   date not null,
-    return_date date null,
-    member_id   int  not null,
-    book_id     int  not null,
-    constraint loans_fk_book_id
-        foreign key (book_id) references books (book_id),
-    constraint loans_fk_member_id
-        foreign key (member_id) references members (member_id)
+    loan_id     INT AUTO_INCREMENT PRIMARY KEY,
+    loan_date   DATE NOT NULL,
+    return_date DATE NULL,
+    member_id   INT NOT NULL,
+    book_id     INT NOT NULL,
+
+    CONSTRAINT loans_fk_book_id_restrict
+        FOREIGN KEY (book_id) REFERENCES books(book_id)
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT,
+
+    CONSTRAINT loans_fk_member_id_restrict
+        FOREIGN KEY (member_id) REFERENCES members(member_id)
+        ON DELETE RESTRICT
+        ON UPDATE RESTRICT
 );

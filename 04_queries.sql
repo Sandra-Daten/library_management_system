@@ -79,12 +79,12 @@ FROM books;
 SELECT
     m.first_name,
     m.last_name,
-    COUNT(l.loan_id) AS num_of_loans
+    COUNT(DISTINCT l.book_id) AS num_of_books
 FROM loans AS l
 INNER JOIN members AS m
-ON l.member_id = m.member_id
+    ON l.member_id = m.member_id
 GROUP BY m.member_id
-HAVING num_of_loans > 1;
+HAVING num_of_books > 1;
 
 #=============================================================================================================
 -- 8. Filtering with subqueries
